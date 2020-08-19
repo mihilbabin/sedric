@@ -1,6 +1,7 @@
 from pathlib import Path
 from image.image import Image
 from image.transformer import Transformer
+from image import utils
 import numpy as np
 import cv2
 
@@ -21,7 +22,8 @@ def main():
     cropped_img = region(image)
     lines = cv2.HoughLinesP(cropped_img.raw, 2, np.pi / 180,
                             100, np.array([]), minLineLength=40, maxLineGap=5)
-    lines_image = img.display_lines(lines)
+    avg_lines = utils.average_slope_intercept(img, lines)
+    lines_image = img.display_lines(avg_lines)
     combined = img.combine(lines_image)
     combined.show(stream=False)
 

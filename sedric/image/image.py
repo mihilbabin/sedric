@@ -16,8 +16,7 @@ class Image:
     def display_lines(self, lines: np.array) -> Image:
         with_lines = np.zeros_like(self.raw)
         if lines is not None:
-            for line in lines:
-                x1, y1, x2, y2 = line.reshape(4)
+            for x1, y1, x2, y2 in lines:
                 cv2.line(with_lines, (x1, y1), (x2, y2), (255, 0, 0), 10)
         return Image(with_lines)
 
